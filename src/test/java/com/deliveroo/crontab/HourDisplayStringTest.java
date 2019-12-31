@@ -8,15 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HourDisplayStringTest {
 
-    private HourParser hvalidator;
-
-    @BeforeEach
-    public void initialize() {
-        this.hvalidator = new HourParser();
-    }
 
     @Test
     public void testCorrectHourString() throws Exception {
+        HourParser hvalidator =  new HourParser();
         String val = hvalidator.returnDisplayString("1,12");
         assertEquals("1 12",val);
 
@@ -29,6 +24,7 @@ public class HourDisplayStringTest {
 
     @Test
     public void testInvalidHours() {
+        HourParser hvalidator =  new HourParser();
         Exception exception = assertThrows(InvalidRangeException.class, () -> {
             hvalidator.returnDisplayString("1,33");
         });

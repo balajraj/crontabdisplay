@@ -7,16 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HourCronParserTest {
 
 
-    private HourParser hvalidator;
-
-    @BeforeEach
-    public void initialize() {
-        this.hvalidator = new HourParser();
-    }
 
     @Test
     public void testCorrectHour() {
+        //System.out.println("before testCorrectHour");
+        HourParser hvalidator = new HourParser();
         boolean val = hvalidator.validate("1,12");
+        //System.out.println("after testCorrectHour");
         assertEquals(true,val);
 
         val = hvalidator.validate("1-12");
@@ -29,6 +26,7 @@ public class HourCronParserTest {
 
     @Test
     public void testInCorrectHour() {
+        HourParser hvalidator = new HourParser();
         boolean val = hvalidator.validate("1*abc");
         assertEquals(false,val);
     }
