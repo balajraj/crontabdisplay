@@ -15,6 +15,26 @@ public abstract class CronParser {
         return false;
     }
 
+    private void processComma(String input, int lowNumber, int highNumber,StringBuffer result) throws InvalidRangeException {
+        String[] parts = input.split(",");
+        int start = Integer.parseInt(parts[0]);
+        int end = Integer.parseInt(parts[1]);
+        throwException(start,lowNumber,highNumber);
+        throwException(end,lowNumber,highNumber);
+        result.append(start).append(" ").append(end);
+    }
+
+    private void processDash(String input,int lowNumber, int highNumber,StringBuffer result) throws InvalidRangeException{
+        String[] parts = input.split("-");
+        int start = Integer.parseInt(parts[0]);
+        int end = Integer.parseInt(parts[1]);
+        throwException(start,lowNumber,highNumber);
+        throwException(end,lowNumber,highNumber);
+        for(int i=1; i <=end; ++i) {
+            result.append(i).append(" ");
+        }
+    }
+
     public String returnDisplayString(String input, int highNumber, int lowNumber) throws InvalidRangeException {
         StringBuffer result = new StringBuffer();
         if(input.equals("*")) {
@@ -24,22 +44,10 @@ public abstract class CronParser {
         }
         else {
             if(input.contains(",")) {
-                String[] parts = input.split(",");
-                int start = Integer.parseInt(parts[0]);
-                int end = Integer.parseInt(parts[1]);
-                throwException(start,lowNumber,highNumber);
-                throwException(end,lowNumber,highNumber);
-                result.append(start).append(" ").append(end);
+              processComma(input,lowNumber,highNumber,result);
             }
             else if( input.contains("-")) {
-                String[] parts = input.split("-");
-                int start = Integer.parseInt(parts[0]);
-                int end = Integer.parseInt(parts[1]);
-                throwException(start,lowNumber,highNumber);
-                throwException(end,lowNumber,highNumber);
-                for(int i=1; i <=end; ++i) {
-                    result.append(i).append(" ");
-                }
+               processDash(input,lowNumber,highNumber,result);
             }
             else {
                 int quanity = Integer.parseInt(input);
@@ -58,7 +66,6 @@ public abstract class CronParser {
         if( type > 23) {
             throw new InvalidRangeException(highrange+" "+ highNumber);
         }
-
     }
 
 }
