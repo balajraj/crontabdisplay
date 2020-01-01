@@ -1,19 +1,14 @@
 package com.deliveroo.crontab;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HourCronParserTest {
 
-
-
     @Test
     public void testCorrectHour() {
-        //System.out.println("before testCorrectHour");
         HourParser hvalidator = new HourParser();
         boolean val = hvalidator.validate("1,12");
-        //System.out.println("after testCorrectHour");
         assertEquals(true,val);
 
         val = hvalidator.validate("1-12");

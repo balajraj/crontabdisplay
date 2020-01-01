@@ -3,7 +3,7 @@ package com.deliveroo.crontab;
 public abstract class CronParser {
 
 
-    String commonRegex = "(\\*)?(\\d+)?(\\*[\\/]\\d+)?(\\d+[,|-]\\d+)?";
+    String commonRegex = "(\\*)?(\\d+)?(\\d+[,|-]\\d+)?";
 
     public static final String highrange = "greater than allowed limit,higher limit is:";
     public static final String lowrange = "lesser than allowed limit,lower limit is:";
@@ -40,19 +40,6 @@ public abstract class CronParser {
                 for(int i=1; i <=end; ++i) {
                     result.append(i).append(" ");
                 }
-            }
-            else if(input.contains("/")) {
-
-                String[] parts = input.split("/");
-                int multiples = Integer.parseInt(parts[1]);
-                int reminder = 60 % multiples;
-                if(multiples == 0 || reminder !=0 ) {
-                    throw new InvalidRangeException(multiple);
-                }
-                for ( int i=0; i <60; i=i+multiples) {
-                    result.append(i).append(" ");
-                }
-
             }
             else {
                 int quanity = Integer.parseInt(input);
